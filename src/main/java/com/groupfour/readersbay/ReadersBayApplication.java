@@ -10,4 +10,5 @@ public class ReadersBayApplication {
 		SpringApplication.run(ReadersBayApplication.class, args);
 	}
 
+
 }

@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @Builder
 @ToString
 @EqualsAndHashCode
-@Data
-@Entity
+@Entity(name = "Quote")
 @Table(name = "quotes")
 public class Quote {
   @Id
@@ -23,20 +22,20 @@ public class Quote {
       sequenceName = "quote_sequence",
       allocationSize = 1
   )
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quote_sequence")
-  @Column(name = "quote_id", nullable = false)
+  @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="quote_sequence")
+  @Column(name="quote_id", nullable=false)
   @Setter(AccessLevel.NONE)
   private Long quoteId;
   @NotBlank
-  @Column(name = "content", nullable = false)
+  @Column(name="content", nullable=false)
   private String content;
-  @Column(name = "creation_date", nullable = false, updatable = false)
+  @Column(name="creation_date", nullable=false, updatable=false)
   private LocalDate creationDate;
-  @Column(name = "visibility", nullable = false)
+  @Column(name="visibility", nullable=false)
   private Visibility visibility;
 
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "book_id", referencedColumnName = "bookId")
+  @JoinColumn(name="book_id", nullable=false)
   @ToString.Exclude
   private Book book;
 }

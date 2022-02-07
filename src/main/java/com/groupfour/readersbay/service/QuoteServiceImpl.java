@@ -2,6 +2,7 @@ package com.groupfour.readersbay.service;
 
 import com.groupfour.readersbay.entity.Quote;
 import com.groupfour.readersbay.repository.QuoteRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 @Log4j2
 public class QuoteServiceImpl implements QuoteService {
 
@@ -16,7 +18,8 @@ public class QuoteServiceImpl implements QuoteService {
   QuoteRepository quoteRepository;
 
   @Override
-  public List<Quote> getAllQuotes(Long id) {
-    return quoteRepository.findAll();
+  public List<Quote> getQuotesByBookId(Long id) {
+    log.info("Fetching all quotes with book_id {}", id);
+    return quoteRepository.findByBookId(id);
   }
 }

@@ -2,10 +2,7 @@ package com.groupfour.readersbay.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
@@ -21,6 +18,12 @@ import java.time.LocalDate;
 @Table(name = "quotes")
 public class Quote {
   @Id
+  @SequenceGenerator(
+      name = "quote_sequence",
+      sequenceName = "quote_sequence",
+      allocationSize = 1
+  )
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quote_sequence")
   @Column(name = "quote_id", nullable = false)
   @Setter(AccessLevel.NONE)
   private Long quoteId;
@@ -31,4 +34,9 @@ public class Quote {
   private LocalDate creationDate;
   @Column(name = "visibility", nullable = false)
   private Visibility visibility;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "book_id", referencedColumnName = "bookId")
+  @ToString.Exclude
+  private Book book;
 }

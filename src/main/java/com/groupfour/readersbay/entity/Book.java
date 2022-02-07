@@ -27,5 +27,4 @@ public class Book {
     @Column(nullable = false, length = 150)
     private String author;
     private String motivation;
-
 }

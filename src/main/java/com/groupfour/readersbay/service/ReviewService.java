@@ -3,8 +3,10 @@ package com.groupfour.readersbay.service;
 import com.groupfour.readersbay.entity.Review;
 import com.groupfour.readersbay.exception.ReviewNotFoundException;
 
+import java.util.List;
+
 public interface ReviewService{
 
-    public Review fetchReviewById(Long reviewId) throws ReviewNotFoundException;
+    List<Review> fetchReviewById(Long reviewId);
     public Review saveReview(Review review);
 }

@@ -14,5 +14,5 @@ public interface ReviewRepository
 
     @Query(value = "SELECT * FROM review r WHERE r.id_book = ?1",
             nativeQuery = true)
-    Optional<Review> fetchReviewById(Long id);
+    List<Review> fetchReviewById(Long id);
 }

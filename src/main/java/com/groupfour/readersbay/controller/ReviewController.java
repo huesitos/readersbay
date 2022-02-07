@@ -16,7 +16,7 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping("{book_param}/reviews")
-    public Review getAllReviews(@PathVariable("book_param") Long reviewId) throws ReviewNotFoundException {
+    public List<Review> getBookReviews(@PathVariable("book_param") Long reviewId){
         return reviewService.fetchReviewById(reviewId);
     }
 

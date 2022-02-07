@@ -9,4 +9,5 @@ public interface ReviewService{
 
     List<Review> fetchReviewById(Long reviewId);
     public Review saveReview(Review review);
+    public void deleteReviewById(Long reviewId);
 }

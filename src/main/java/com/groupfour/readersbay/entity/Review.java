@@ -2,10 +2,7 @@ package com.groupfour.readersbay.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
@@ -19,12 +16,22 @@ import java.time.LocalDate;
 @Table(name = "review")
 public class Review {
     @Id
-    @Column(name = "id_review", nullable = false)
+    @SequenceGenerator(
+            name = "review_sequence",
+            sequenceName = "review_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_sequence")
     private Long id_review;
+    @Column(name = "socore", length = 5)
+    private int socore;
     @Column(name = "review", nullable = false)
     private String review;
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    //@OneToOne(cascade = CascadeType.REMOVE)
+    //@JoinColumn(name = "id_book", nullable = false)
     @Column(name = "id_book", nullable = false)
     private Long id_book;
 }

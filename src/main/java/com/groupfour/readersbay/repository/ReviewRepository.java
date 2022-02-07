@@ -12,7 +12,8 @@ import java.util.Optional;
 public interface ReviewRepository
         extends JpaRepository<Review, Long> {
 
-    @Query(value = "SELECT * FROM review r WHERE r.id_book = ?1",
+    @Query(value = "SELECT * FROM review as r WHERE r.id_book = ?1",
             nativeQuery = true)
     List<Review> fetchReviewById(Long id);
+
 }

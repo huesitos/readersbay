@@ -21,7 +21,13 @@ public class ReviewController {
     }
 
     @PostMapping("{book_param}/reviews")
-    public Review saveReview(@RequestBody Review review){
+    public Review saveBookReview(@RequestBody Review review){
         return reviewService.saveReview(review);
+    }
+
+    @DeleteMapping("{book_param}/reviews/{review_param}")
+    public String deleteBookReview(@PathVariable("review_param") Long reviewId) {
+        reviewService.deleteReviewById(reviewId);
+        return "Review deleted Successfully";
     }
 }

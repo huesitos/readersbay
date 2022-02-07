@@ -15,10 +15,15 @@ public class ReviewServicesImpl implements ReviewService{
 
     @Override
     public Review fetchReviewById(Long reviewId) throws ReviewNotFoundException {
-        Optional<Review> review = reviewRepository.findById(reviewId);
+        Optional<Review> review = reviewRepository.fetchReviewById(reviewId);
         if(!review.isPresent()) {
             throw new ReviewNotFoundException("Review Not Available");
         }
         return review.get();
+    }
+
+    @Override
+    public Review saveReview(Review review) {
+        return reviewRepository.save(review);
     }
 }

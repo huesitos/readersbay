@@ -23,7 +23,7 @@ public class Review {
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_sequence")
     private Long id_review;
-    @Column(name = "socore", length = 5)
+    @Column(name = "socore", length = 5, nullable = false)
     private int socore;
     @Column(name = "review", nullable = false)
     private String review;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReviewService{
 
-    List<Review> fetchReviewById(Long reviewId);
+    List<Review> fetchBookReviewById(Long bookId);
     public Review saveReview(Review review);
     public void deleteReviewById(Long reviewId);
 }

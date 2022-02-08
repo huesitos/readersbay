@@ -15,8 +15,8 @@ public class ReviewServicesImpl implements ReviewService{
     private ReviewRepository reviewRepository;
 
     @Override
-    public List<Review> fetchReviewById(Long reviewId){
-        List<Review> review = reviewRepository.fetchReviewById(reviewId);
+    public List<Review> fetchBookReviewById(Long bookId){
+        List<Review> review = reviewRepository.fetchBookReviewById(bookId);
         return review;
     }
 

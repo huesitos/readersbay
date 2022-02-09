@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>REVIEWS by book </title>
+</head>
+<body>
+<h1>REVIEWS <span>reviews bys book</span> </h1>
+
+<table border="1">
+    <tr>
+        <td>Review id</td>
+        <td>Review</td>
+    </tr>
+    <tr th:each="rw : ${reviews}">
+        <td th:text="${rw.id_review}">First Name</td>
+        <td th:text="${rw.revies}">Last Name</td>
+    </tr>
+</table>
+
+</body>
+</html>

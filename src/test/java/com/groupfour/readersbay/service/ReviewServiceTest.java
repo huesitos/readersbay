@@ -38,7 +38,7 @@ class ReviewServiceTest {
                         .id_review(1L)
                         .review("My 1th review")
                         .date(LocalDate.now())
-                        .socore(5)
+                        .score(5)
                         .build()
                 ));
 

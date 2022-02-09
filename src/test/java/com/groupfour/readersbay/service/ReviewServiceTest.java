@@ -28,19 +28,19 @@ class ReviewServiceTest {
     @Test
     @DisplayName("Get all reviews from an existing book")
     void whenExistingBookId_thenReviewFound() {
-        Mockito.when(reviewRepository.fetchBookReviewById(1L))
+        Mockito.when(reviewRepository.findAllByBookId(1L))
                 .thenReturn(List.of(
-                        Review.builder()
-                        .id_review(1L)
-                        .review("My 1th review")
+                    Review.builder()
+                        .reviewId(1L)
+                        .text("My 1th review")
                         .date(LocalDate.now())
-                        .socore(5)
+                        .score(5)
                         .build()
                 ));
 
 
-        List<Review> reviewList = reviewService.fetchBookReviewsById(1L);
-        verify(reviewRepository).fetchBookReviewById(1L);
+        List<Review> reviewList = reviewService.findAllByBookId(1L);
+        verify(reviewRepository).findAllByBookId(1L);
         assertEquals(1, reviewList.size());
     }
 }

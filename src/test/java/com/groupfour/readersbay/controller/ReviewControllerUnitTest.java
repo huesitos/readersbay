@@ -16,7 +16,7 @@ class ReviewControllerUnitTest {
     @Test
     void getBookReviews(){
         ReviewService reviewService = Mockito.mock(ReviewService.class);
-        when(reviewService.fetchBookReviewsById(1L)).thenReturn(new ArrayList<>());
+        when(reviewService.findAllByBookId(1L)).thenReturn(new ArrayList<>());
         ReviewController reviewController = new ReviewController(reviewService);
         assertEquals(0, reviewController.getBookReviews(1L).size());
     }

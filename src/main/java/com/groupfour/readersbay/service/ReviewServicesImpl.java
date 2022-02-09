@@ -18,19 +18,19 @@ import java.util.Optional;
 
 @Service
 @Log4j2
-public class ReviewServicesImpl implements ReviewService{
+public class ReviewServicesImpl implements ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
     @Autowired
     private BookRepository bookRepository;
 
     @Override
-    public List<Review> fetchBookReviewsById(Long bookId) {
-        return reviewRepository.fetchBookReviewById(bookId);
+    public List<Review> findAllByBookId(Long bookId) {
+        return reviewRepository.findAllByBookId(bookId);
     }
 
     @Override
-    public Review saveReview(Long bookId, @NotNull ReviewDTO reviewDTO)
+    public Review saveReviewToBook(Long bookId, @NotNull ReviewDTO reviewDTO)
         throws BookNotFoundException {
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -45,13 +45,38 @@ public class ReviewServicesImpl implements ReviewService{
             .score(reviewDTO.getScore())
             .text(reviewDTO.getText())
             .date(LocalDate.now())
+            .book(book.get())
             .build();
+        return reviewRepository.save(review);
+    }
+
+    @Override
+    public Review updateReview(Long reviewId, @NotNull ReviewDTO reviewDTO)
+        throws ReviewNotFoundException {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+
+        if (optionalReview.isEmpty()) {
+            String message = String.format("Review with id %d not found", reviewId);
+            log.error(message);
+            throw new ReviewNotFoundException(message);
+        }
+
+        Review review = optionalReview.get();
+        if (reviewDTO.getScore() != 0) {
+            review.setScore(reviewDTO.getScore());
+        }
+
+        if (reviewDTO.getText() != null && !reviewDTO.getText().isEmpty()) {
+            review.setText(reviewDTO.getText());
+        }
+
+        review.setDate(LocalDate.now());
 
         return reviewRepository.save(review);
     }
 
     @Override
-    public void deleteReviewById(Long reviewId) {
-        reviewRepository.deleteById(reviewId);
+    public void deleteById(Long bookId) {
+        reviewRepository.deleteById(bookId);
     }
 }

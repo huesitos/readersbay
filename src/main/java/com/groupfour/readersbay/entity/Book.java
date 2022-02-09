@@ -31,7 +31,11 @@ public class Book {
   private String description;
   private String motivation;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-  @ToString.Exclude
+  @OneToMany(mappedBy = "book")
   private List<Quote> quotes;
+
+  @OneToMany(mappedBy = "book")
+  private List<Review> reviews;
+
+
 }

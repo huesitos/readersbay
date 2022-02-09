@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,6 @@ public class BookServiceImpl implements BookService {
         .title(bookDTO.getTitle())
         .description(bookDTO.getDescription())
         .motivation(bookDTO.getMotivation())
-        .quotes(new ArrayList<>())
         .build();
 
     return bookRepository.save(book);

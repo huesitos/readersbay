@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -25,7 +24,7 @@ class QuoteControllerAcceptanceTest {
   @Test
   void fetchBookQuotes() {
     try {
-      MvcResult mvcResult = mockMvc.perform(get("/publications/1/quotes")
+      MvcResult mvcResult = mockMvc.perform(get("/books/1/quotes")
               .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk()).andReturn();
 

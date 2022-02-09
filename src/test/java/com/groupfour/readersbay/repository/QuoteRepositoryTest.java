@@ -5,14 +5,12 @@ import com.groupfour.readersbay.entity.Quote;
 import com.groupfour.readersbay.entity.Visibility;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class QuoteRepositoryTest {

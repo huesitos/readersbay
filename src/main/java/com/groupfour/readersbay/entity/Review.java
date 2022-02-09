@@ -1,5 +1,6 @@
 package com.groupfour.readersbay.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @ToString
 @Builder
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review {
     @Id
     @SequenceGenerator(
@@ -22,16 +23,19 @@ public class Review {
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_sequence")
-    private Long id_review;
-    @Column(name = "score", length = 5, nullable = false)
+    private Long reviewId;
+    @Column(name = "score", length = 5)
     private int score;
-    @Column(name = "review", nullable = false)
-    private String review;
+    @Column(name = "review")
+    private String text;
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    //@OneToOne(cascade = CascadeType.REMOVE)
-    //@JoinColumn(name = "id_book", nullable = false)
-    @Column(name = "id_book", nullable = false)
-    private Long id_book;
+    @ManyToOne
+    @JoinColumn(
+        name = "book_id",
+        nullable = false
+    )
+    @JsonIgnore
+    private Book book;
 }

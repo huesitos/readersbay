@@ -1,7 +1,6 @@
 package com.groupfour.readersbay.controller;
 
 import com.groupfour.readersbay.entity.Review;
-import com.groupfour.readersbay.exception.ReviewNotFoundException;
 import com.groupfour.readersbay.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

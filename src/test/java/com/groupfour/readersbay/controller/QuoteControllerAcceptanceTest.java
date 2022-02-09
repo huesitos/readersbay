@@ -24,7 +24,7 @@ class QuoteControllerAcceptanceTest {
   @Test
   void fetchBookQuotes() {
     try {
-      MvcResult mvcResult = mockMvc.perform(get("/publications/1/quotes")
+      MvcResult mvcResult = mockMvc.perform(get("/books/1/quotes")
               .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk()).andReturn();
 

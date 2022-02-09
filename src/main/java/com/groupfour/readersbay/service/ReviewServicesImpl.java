@@ -15,9 +15,8 @@ public class ReviewServicesImpl implements ReviewService{
     private ReviewRepository reviewRepository;
 
     @Override
-    public List<Review> fetchBookReviewById(Long bookId){
-        List<Review> review = reviewRepository.fetchBookReviewById(bookId);
-        return review;
+    public List<Review> fetchBookReviewById(Long bookId) {
+        return reviewRepository.fetchBookReviewById(bookId);
     }
 
     @Override
@@ -29,6 +28,4 @@ public class ReviewServicesImpl implements ReviewService{
     public void deleteReviewById(Long reviewId) {
         reviewRepository.deleteById(reviewId);
     }
-
-
 }

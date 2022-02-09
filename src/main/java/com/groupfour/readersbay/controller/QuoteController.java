@@ -14,19 +14,19 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Log4j2
-@RequestMapping("/publications")
+@RequestMapping("/books/")
 public class QuoteController {
 
   @Autowired
   QuoteService quoteService;
 
-  @GetMapping("/{book_id}/quotes")
+  @GetMapping("{book_id}/quotes")
   public List<Quote> fetchBookQuotes(@PathVariable("book_id") Long bookId) {
     log.info("QuoteController: /{book_id}/quotes fetchBookQuotes with id {}", bookId);
     return quoteService.getQuotesByBookId(bookId);
   }
 
-  @PostMapping("/{book_id}/quotes")
+  @PostMapping("{book_id}/quotes")
   public Quote saveBookQuote(@PathVariable("book_id") Long bookId,
                                    @RequestBody QuoteDTO quoteDTO) throws BookNotFoundException {
     log.info("QuoteController: /{book_id}/quotes saveBookQuote {} to book id {}",

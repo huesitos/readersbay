@@ -10,8 +10,7 @@ import java.util.List;
 
 
 @RestController
-@AllArgsConstructor
-@RequestMapping(path = "publications/")
+@RequestMapping("/books")
 public class ReviewController {
     @Autowired
     ReviewService reviewService;
@@ -26,7 +25,7 @@ public class ReviewController {
         return reviewService.saveReview(review);
     }
 
-    @DeleteMapping("{book_param}/reviews/{review_param}")
+    @DeleteMapping("{book_param}/reviews")
     public String deleteBookReview(@PathVariable("review_param") Long reviewId) {
         reviewService.deleteReviewById(reviewId);
         return "Review deleted Successfully";

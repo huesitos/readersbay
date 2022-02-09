@@ -64,7 +64,7 @@ class QuoteControllerIntTest {
     when(quoteService.getQuotesByBookId(1L)).thenReturn(List.of(quote, quote, quote));
 
     try {
-      MvcResult mvcResult = mockMvc.perform(get("/publications/1/quotes")
+      MvcResult mvcResult = mockMvc.perform(get("/books/1/quotes")
               .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk())
           .andExpect(jsonPath("$[0].content").value(quote.getContent())).andReturn();
@@ -83,7 +83,7 @@ class QuoteControllerIntTest {
     when(quoteService.saveQuoteToBook(1L, quoteDTO)).thenReturn(quote);
 
     try {
-      mockMvc.perform(post("/publications/1/quotes")
+      mockMvc.perform(post("/books/1/quotes")
               .contentType(MediaType.APPLICATION_JSON)
               .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
           .andExpect(status().isOk());

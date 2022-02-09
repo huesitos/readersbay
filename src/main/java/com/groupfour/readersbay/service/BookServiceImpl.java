@@ -4,6 +4,7 @@ import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.repository.BookRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 @Log4j2
 public class BookServiceImpl implements BookService {
 
@@ -26,6 +28,7 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public Book saveBook(@NotNull BookDTO bookDTO) {
+    log.info("BookService: Saving book {}", bookDTO);
     Book book = Book
         .builder()
         .author(bookDTO.getAuthor())
@@ -42,7 +45,9 @@ public class BookServiceImpl implements BookService {
     Optional<Book> optionalBook = bookRepository.findById(bookId);
 
     if (optionalBook.isEmpty()) {
-      throw new BookNotFoundException(String.format("Book with id %d not found", bookId));
+      String message = String.format("BookService: Book with id %d not found", bookId);
+      log.error(message);
+      throw new BookNotFoundException(message);
     }
 
     Book book = optionalBook.get();
@@ -70,11 +75,13 @@ public class BookServiceImpl implements BookService {
     Optional<Book> optionalBook = bookRepository.findById(bookId);
 
     if (optionalBook.isEmpty()) {
-      throw new BookNotFoundException(String.format("Book with id %d not found", bookId));
+      String message = String.format("BookService: Book with id %d not found", bookId);
+      log.error(message);
+      throw new BookNotFoundException(message);
     }
 
     bookRepository.delete(optionalBook.get());
 
-    return String.format("Book %d deleted", bookId);
+    return String.format("Book with id %d deleted", bookId);
   }
 }

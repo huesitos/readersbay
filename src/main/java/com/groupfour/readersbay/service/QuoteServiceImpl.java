@@ -39,8 +39,9 @@ public class QuoteServiceImpl implements QuoteService {
     Optional<Book> optionalBook = bookRepository.findById(bookId);
 
     if (optionalBook.isEmpty()) {
-      throw new BookNotFoundException(
-          String.format("Book with id %d does not exist", bookId));
+      String message = String.format("Book with id %d doesn't exist", bookId);
+      log.error(message);
+      throw new BookNotFoundException(message);
     }
 
     Quote quote = Quote

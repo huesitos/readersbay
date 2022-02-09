@@ -1,8 +1,9 @@
 package com.groupfour.readersbay.controller;
 
 import com.groupfour.readersbay.entity.Review;
+import com.groupfour.readersbay.entity.ReviewDTO;
+import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.service.ReviewService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,13 @@ public class ReviewController {
 
     @GetMapping("{book_param}/reviews")
     public List<Review> getBookReviews(@PathVariable("book_param") Long bookId){
-        return reviewService.fetchBookReviewById(bookId);
+        return reviewService.fetchBookReviewsById(bookId);
     }
 
     @PostMapping("{book_param}/reviews")
-    public Review saveBookReview(@RequestBody Review review){
-        return reviewService.saveReview(review);
+    public Review saveBookReview(@PathVariable("book_param") Long bookId,
+                                 @RequestBody ReviewDTO reviewDTO) throws BookNotFoundException {
+        return reviewService.saveReview(bookId, reviewDTO);
     }
 
     @DeleteMapping("{book_param}/reviews")

@@ -22,16 +22,15 @@ public class Review {
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_sequence")
-    private Long id_review;
-    @Column(name = "socore", length = 5, nullable = false)
-    private int socore;
+    private Long reviewId;
+    @Column(name = "socore", length = 5)
+    private int score;
     @Column(name = "review", nullable = false)
-    private String review;
+    private String text;
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    //@OneToOne(cascade = CascadeType.REMOVE)
-    //@JoinColumn(name = "id_book", nullable = false)
-    @Column(name = "id_book", nullable = false)
-    private Long id_book;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_id", referencedColumnName = "bookId", nullable = false)
+    private Long bookId;
 }

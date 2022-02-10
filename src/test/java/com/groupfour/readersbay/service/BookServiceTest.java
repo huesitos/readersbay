@@ -2,6 +2,7 @@ package com.groupfour.readersbay.service;
 
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
+import com.groupfour.readersbay.entity.ReadingStatus;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.repository.BookRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,14 @@ class BookServiceTest {
         .title("Title")
         .build();
 
-    bookDTO = new BookDTO("New Title", "Author", "Description", "Motivation");
+    bookDTO = new BookDTO(
+        "New Title",
+        "Author",
+        "Description",
+        "Motivation",
+        ReadingStatus.READING,
+        "",
+        "");
   }
 
   @Test

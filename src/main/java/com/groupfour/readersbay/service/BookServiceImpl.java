@@ -35,6 +35,9 @@ public class BookServiceImpl implements BookService {
         .title(bookDTO.getTitle())
         .description(bookDTO.getDescription())
         .motivation(bookDTO.getMotivation())
+        .subject(bookDTO.getSubject())
+        .genre(bookDTO.getGenre())
+        .status(bookDTO.getStatus())
         .build();
 
     return bookRepository.save(book);
@@ -65,6 +68,18 @@ public class BookServiceImpl implements BookService {
 
     if (bookDTO.getMotivation() != null && !bookDTO.getMotivation().isEmpty()) {
       book.setMotivation(bookDTO.getMotivation());
+    }
+
+    if (bookDTO.getGenre() != null && !bookDTO.getGenre().isEmpty()) {
+      book.setGenre(bookDTO.getGenre());
+    }
+
+    if (bookDTO.getSubject() != null && !bookDTO.getSubject().isEmpty()) {
+      book.setSubject(bookDTO.getSubject());
+    }
+
+    if (bookDTO.getStatus() != null) {
+      book.setStatus(bookDTO.getStatus());
     }
 
     return bookRepository.save(book);

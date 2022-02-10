@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
 import com.groupfour.readersbay.entity.QuoteDTO;
+import com.groupfour.readersbay.entity.ReadingStatus;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.service.BookService;
 import net.minidev.json.JSONArray;
@@ -47,7 +48,14 @@ class BookControllerIntTest {
         .title("Title")
         .build();
 
-    bookDTO = new BookDTO("Title", "Author", null, null);
+    bookDTO = new BookDTO(
+        "New Title",
+        "Author",
+        "Description",
+        "Motivation",
+        ReadingStatus.READING,
+        "",
+        "");
   }
 
   @Test

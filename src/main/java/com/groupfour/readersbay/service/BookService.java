@@ -15,4 +15,6 @@ public interface BookService {
   Book updateBook(Long bookId, @NotNull BookDTO bookDTO) throws BookNotFoundException;
 
   String deleteBook(Long bookId) throws BookNotFoundException;
+
+  Book getBook(Long bookId) throws BookNotFoundException;
 }

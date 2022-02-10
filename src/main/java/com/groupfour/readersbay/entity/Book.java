@@ -40,4 +40,7 @@ public class Book {
 
   @OneToMany(mappedBy = "book")
   private List<Review> reviews;
+
+  @OneToMany(mappedBy = "book")
+  private List<Reflection> reflections;
 }

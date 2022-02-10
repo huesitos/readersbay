@@ -18,24 +18,52 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Books</li>
+                    <li class="breadcrumb-item"><a th:href="@{/books}">Books</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Book</li>
                 </ol>
             </nav>
         </div>
     </div>
 
 
-    <h2>Books</h2>
+    <h4>Books</h4>
 
     <div class="book" th:each=" detail : ${book} ">
-        <h3 th:text="${detail.title}"></h3>
+        <div>
+            <h2 th:text="${detail.title}"></h2>
+        </div>
+        <div>
+            <span th:text="${detail.author}">Author</span>
+        </div>
+        <div>
+            <span th:text="${detail.description}">Description</span>
+        </div>
 
+        <div>
+            <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
+               class="book-link btn btn-default">
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+                more reviews
+            </a>
+
+            <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
+               class="book-link btn btn-default">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                quotes
+            </a>
+
+            <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
+               class="book-link btn btn-default">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                reflections
+            </a>
+        </div>
 
         <ul th:each = "review : ${detail.reviews}" class="reviews">
             <li class="review">
                 <a href="#" class="review-link">
                     <div class="review-link--date">
-                        <span th:text="${review.date}">fecha</span>
+                        <span th:text="${review.date}">date</span>
                     </div>
                     <div class="review-link--score">
                         <span>score: </span>
@@ -47,11 +75,8 @@
                 </a>
             </li>
         </ul>
-        <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
-           class="book-link btn btn-default">
-            <i class="fa fa-external-link" aria-hidden="true"></i>
-            more reviews
-        </a>
+
+
     </div>
 
 </div>

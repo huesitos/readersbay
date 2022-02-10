@@ -18,16 +18,16 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Books</li>
-                    <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+                    <li class="breadcrumb-item"><a th:href="@{/books}">Books</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Book</li>
                 </ol>
             </nav>
         </div>
     </div>
 
 
-    <h2>Reviews</h2>
-    <div>All reviews - view example </div>
+    <h4>Reviews</h4>
+    <div>All reviews</div>
 
     <ul th:each = "review : ${reviews}" class="reviews">
         <li class="review">

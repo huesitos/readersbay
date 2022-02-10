@@ -25,14 +25,14 @@
     </div>
 
 
-    <h2>Books</h2>
+    <h4>Books</h4>
 
     <ul th:each = "book : ${books}" class="books">
         <li class="book">
             <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
                 <div class="book-link--text">
                     <i class="fa fa-book"></i>
-                    <span th:text="${book.title}">review</span>
+                    <span th:text="${book.title}">title</span>
                 </div>
             </a>
         </li>

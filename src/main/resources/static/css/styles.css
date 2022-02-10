@@ -1,0 +1,30 @@
+.reviews {
+    display: block;
+    background: #f8f9fa;
+    margin: 0;
+    padding: inherit;
+}
+.reviews .review {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.reviews .review .review-link {
+    text-decoration: none;
+    padding: 10px 10px;
+    border-bottom: 1pt solid #282828;
+}
+
+
+.reviews .review .review-link--date {
+    color: #000;
+    font-size: 12px;
+}
+.reviews .review .review-link--text {
+    font-size: 14px;
+}
+.reviews .review .review-link--score {
+    color: #000;
+    font-size: 16px;
+}

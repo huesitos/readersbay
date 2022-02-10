@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #home-main-content}
+                                               )}">
+
+<head>
+    <title>Books</title>
+</head>
+<body>
+
+<div id="home-main-content">
+    <div class="row">
+        <div class="col-xxl-l12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Books</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <h2>Books</h2>
+
+    <ul th:each = "book : ${books}" class="books">
+        <li class="book">
+            <a th:href="@{/public/{idBook}/reviews(idBook=${book.bookId})}" class="book-link">
+                <div class="book-link--text">
+                    <span th:text="${book.title}">review</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>

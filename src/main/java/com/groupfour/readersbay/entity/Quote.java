@@ -1,5 +1,6 @@
 package com.groupfour.readersbay.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,5 +38,6 @@ public class Quote {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="book_id", nullable=false)
   @ToString.Exclude
+  @JsonIgnore
   private Book book;
 }

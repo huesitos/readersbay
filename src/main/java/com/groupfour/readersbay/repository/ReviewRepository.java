@@ -6,13 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ReviewRepository
         extends JpaRepository<Review, Long> {
 
-    @Query(value = "SELECT * FROM review as r WHERE r.id_book = ?1",
-            nativeQuery = true)
-    List<Review> fetchBookReviewById(Long id);
+    @Query(value = "SELECT * FROM reviews as r WHERE r.book_id = ?1", nativeQuery = true)
+    List<Review> findAllByBookId(Long bookId);
 }

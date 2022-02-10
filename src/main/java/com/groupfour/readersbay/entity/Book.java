@@ -28,10 +28,19 @@ public class Book {
   private String title;
   @Column(nullable=false, length=150)
   private String author;
+  @Column(nullable = false)
+  private ReadingStatus status;
+  private String genre;
+  private String subject;
   private String description;
   private String motivation;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
-  @ToString.Exclude
+  @OneToMany(mappedBy = "book")
   private List<Quote> quotes;
+
+  @OneToMany(mappedBy = "book")
+  private List<Review> reviews;
+
+  @OneToMany(mappedBy = "book")
+  private List<Reflection> reflections;
 }

@@ -3,9 +3,13 @@ package com.groupfour.readersbay.controller;
 import com.google.gson.Gson;
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.Quote;
+import com.groupfour.readersbay.entity.QuoteDTO;
 import com.groupfour.readersbay.entity.Visibility;
+import com.groupfour.readersbay.exception.BookNotFoundException;
+import com.groupfour.readersbay.exception.QuoteNotFoundException;
 import com.groupfour.readersbay.service.QuoteService;
 import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +37,15 @@ class QuoteControllerIntTest {
   private QuoteService quoteService;
 
   private Quote quote;
+  private QuoteDTO quoteDTO;
 
   @BeforeEach
   void setUp() {
     Book book = Book
         .builder()
         .bookId(1L)
+        .author("Author")
+        .title("Title")
         .build();
 
     quote = Quote
@@ -49,6 +56,8 @@ class QuoteControllerIntTest {
         .content("Hello")
         .book(book)
         .build();
+
+    quoteDTO = new QuoteDTO("Hello", Visibility.PRIVATE);
   }
 
   @Test
@@ -56,7 +65,7 @@ class QuoteControllerIntTest {
     when(quoteService.getQuotesByBookId(1L)).thenReturn(List.of(quote, quote, quote));
 
     try {
-      MvcResult mvcResult = mockMvc.perform(get("/publications/1/quotes")
+      MvcResult mvcResult = mockMvc.perform(get("/quotes/book/1")
               .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk())
           .andExpect(jsonPath("$[0].content").value(quote.getContent())).andReturn();
@@ -65,6 +74,46 @@ class QuoteControllerIntTest {
           new Gson()
               .fromJson(mvcResult.getResponse().getContentAsString(), JSONArray.class)
               .size());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  void saveBookQuotes() throws BookNotFoundException {
+    when(quoteService.saveQuoteToBook(1L, quoteDTO)).thenReturn(quote);
+
+    try {
+      mockMvc.perform(post("/quotes/book/1")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
+          .andExpect(status().isOk());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  void updateBookQuote() throws QuoteNotFoundException {
+    when(quoteService.updateQuote(1L, quoteDTO)).thenReturn(quote);
+
+    try {
+      mockMvc.perform(post("/quotes/book/1")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
+          .andExpect(status().isOk());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  void deleteBookQuote() throws QuoteNotFoundException {
+    try {
+      mockMvc.perform(delete("/quotes/1")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
+          .andExpect(status().isOk());
     } catch (Exception e) {
       fail(e.getMessage());
     }

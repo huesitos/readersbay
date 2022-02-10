@@ -64,6 +64,12 @@ public class QuoteServiceImpl implements QuoteService {
     return quoteRepository.save(quote);
   }
 
+  @Override
+  public void deleteQuote(Long quoteId) throws QuoteNotFoundException {
+    log.info("Deleting quote {}", quoteId);
+    quoteRepository.delete(findQuoteById(quoteId));
+  }
+
   private @NotNull Quote findQuoteById(Long quoteId) throws QuoteNotFoundException {
     Optional<Quote> optionalQuote = quoteRepository.findById(quoteId);
 

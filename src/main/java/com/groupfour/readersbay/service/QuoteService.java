@@ -13,4 +13,6 @@ public interface QuoteService {
   Quote saveQuoteToBook(Long bookId, QuoteDTO quoteDTO) throws BookNotFoundException;
 
   Quote updateQuote(Long quoteId, QuoteDTO quoteDTO) throws QuoteNotFoundException;
+
+  void deleteQuote(Long quoteId) throws QuoteNotFoundException;
 }

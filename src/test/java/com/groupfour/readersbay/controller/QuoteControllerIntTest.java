@@ -106,4 +106,16 @@ class QuoteControllerIntTest {
       fail(e.getMessage());
     }
   }
+
+  @Test
+  void deleteBookQuote() throws QuoteNotFoundException {
+    try {
+      mockMvc.perform(delete("/quotes/1")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
+          .andExpect(status().isOk());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
 }

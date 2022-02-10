@@ -5,7 +5,9 @@ import com.groupfour.readersbay.entity.Quote;
 import com.groupfour.readersbay.entity.QuoteDTO;
 import com.groupfour.readersbay.entity.Visibility;
 import com.groupfour.readersbay.exception.BookNotFoundException;
+import com.groupfour.readersbay.exception.QuoteNotFoundException;
 import com.groupfour.readersbay.repository.BookRepository;
+import com.groupfour.readersbay.repository.QuoteRepository;
 import com.groupfour.readersbay.service.QuoteService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -55,5 +57,14 @@ class QuoteControllerUnitTest {
     QuoteController quoteController = new QuoteController(service);
 
     assertEquals(quote, quoteController.saveBookQuote(1L, quoteDTO));
+  }
+
+  @Test
+  void deleteQuote() throws QuoteNotFoundException {
+    QuoteService service = Mockito.mock(QuoteService.class);
+    QuoteController quoteController = new QuoteController(service);
+
+    assertEquals("Quote deleted successfully.",
+        quoteController.deleteBookQuote(1L));
   }
 }

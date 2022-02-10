@@ -24,11 +24,30 @@ class QuoteServiceTest {
 
   private QuoteRepository quoteRepository;
   private BookService bookService;
+  private Book book;
+  private Quote quote;
 
   @BeforeEach
   void setUp() {
     quoteRepository = Mockito.mock(QuoteRepository.class);
     bookService = Mockito.mock(BookService.class);
+
+    book = Book.builder()
+        .bookId(1L)
+        .author("Author")
+        .title("Title")
+        .build();
+
+    quote = Quote.builder()
+        .quoteId(1L)
+        .content("Content")
+        .visibility(Visibility.PRIVATE)
+        .book(book)
+        .creationDate(LocalDate.now())
+        .build();
+
+    when(quoteRepository.save(any()))
+        .thenReturn(quote);
   }
 
   @Test
@@ -52,25 +71,8 @@ class QuoteServiceTest {
   @Test
   @DisplayName("Save a quote from an existing book")
   void whenExistingBookId_thenQuoteSaved() throws BookNotFoundException {
-    Book book = Book.builder()
-        .bookId(1L)
-        .author("Author")
-        .title("Title")
-        .build();
-
     when(bookService.getBook(1L))
         .thenReturn(book);
-
-    Quote quote = Quote.builder()
-        .quoteId(1L)
-        .content("Content")
-        .visibility(Visibility.PRIVATE)
-        .book(book)
-        .creationDate(LocalDate.now())
-        .build();
-
-    when(quoteRepository.save(any()))
-        .thenReturn(quote);
 
     QuoteDTO quoteDTO = Mockito.mock(QuoteDTO.class);
     when(quoteDTO.getContent()).thenReturn("Content");
@@ -100,14 +102,7 @@ class QuoteServiceTest {
 
   @Test
   @DisplayName("Update a quote")
-  void whenQuoteExists_thenQuoteUpdated()
-      throws BookNotFoundException, QuoteNotFoundException {
-    Quote quote = Quote.builder()
-        .quoteId(1L)
-        .content("Content")
-        .visibility(Visibility.PRIVATE)
-        .creationDate(LocalDate.now())
-        .build();
+  void whenQuoteExists_thenQuoteUpdated() throws QuoteNotFoundException {
 
     when(quoteRepository.findById(1L))
         .thenReturn(Optional.of(quote));
@@ -122,5 +117,18 @@ class QuoteServiceTest {
         new QuoteServiceImpl(quoteRepository, bookService);
     Quote savedQuote = quoteService.updateQuote(1L, quoteDTO);
     assertEquals("New Content", savedQuote.getContent());
+  }
+
+  @Test
+  @DisplayName("Delete a quote")
+  void whenQuote_thenDelete() {
+    when(quoteRepository.findById(1L))
+        .thenReturn(Optional.of(quote));
+
+    assertDoesNotThrow(() -> {
+      QuoteService quoteService =
+          new QuoteServiceImpl(quoteRepository, bookService);
+      quoteService.deleteQuote(1L);
+    });
   }
 }

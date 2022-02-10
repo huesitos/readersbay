@@ -42,4 +42,12 @@ public class QuoteController {
         quoteId, quoteDTO);
     return quoteService.updateQuote(quoteId, quoteDTO);
   }
+
+  @DeleteMapping("/{quote_id}")
+  public String deleteBookQuote(@PathVariable("quote_id") Long quoteId)
+      throws QuoteNotFoundException {
+    log.info("QuoteController: /quotes/{quote_id} deleteBookQuote {}", quoteId);
+    quoteService.deleteQuote(quoteId);
+    return "Quote deleted successfully.";
+  }
 }

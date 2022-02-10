@@ -12,4 +12,7 @@ public class BookDTO {
   private String author;
   private String description;
   private String motivation;
+  private ReadingStatus status;
+  private String subject;
+  private String genre;
 }

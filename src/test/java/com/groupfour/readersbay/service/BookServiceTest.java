@@ -2,9 +2,11 @@ package com.groupfour.readersbay.service;
 
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
+import com.groupfour.readersbay.entity.ReadingStatus;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.repository.BookRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -30,10 +32,18 @@ class BookServiceTest {
         .title("Title")
         .build();
 
-    bookDTO = new BookDTO("New Title", "Author", "Description", "Motivation");
+    bookDTO = new BookDTO(
+        "New Title",
+        "Author",
+        "Description",
+        "Motivation",
+        ReadingStatus.READING,
+        "",
+        "");
   }
 
   @Test
+  @DisplayName("Get all books")
   void getBooks() {
     when(bookRepository.findAll()).thenReturn(List.of(book, book, book));
 
@@ -43,6 +53,28 @@ class BookServiceTest {
   }
 
   @Test
+  @DisplayName("Get a book")
+  void getBook() throws BookNotFoundException {
+    when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+
+    BookService bookService = new BookServiceImpl(bookRepository);
+    Book book = bookService.getBook(1L);
+    assertEquals("Title", book.getTitle());
+  }
+
+  @Test
+  @DisplayName("Get non existing book")
+  void getNonExistingBook() {
+    when(bookRepository.findById(1L)).thenReturn(Optional.empty());
+
+    assertThrows(BookNotFoundException.class, () -> {
+      BookService bookService = new BookServiceImpl(bookRepository);
+      bookService.getBook(1L);
+    });
+  }
+
+  @Test
+  @DisplayName("Save book")
   void saveBook() {
     when(bookRepository.save(any())).thenReturn(book);
 
@@ -52,6 +84,7 @@ class BookServiceTest {
   }
 
   @Test
+  @DisplayName("Update book")
   void updateBook() throws BookNotFoundException {
     when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
     when(bookRepository.save(any())).thenReturn(book);
@@ -62,6 +95,7 @@ class BookServiceTest {
   }
 
   @Test
+  @DisplayName("Update non existing book")
   void updateNonExistingBook() {
     when(bookRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -72,6 +106,7 @@ class BookServiceTest {
   }
 
   @Test
+  @DisplayName("Delete book")
   void deleteBook() throws BookNotFoundException {
     when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
     when(bookRepository.save(any())).thenReturn(book);
@@ -82,6 +117,7 @@ class BookServiceTest {
   }
 
   @Test
+  @DisplayName("Delete non existing book")
   void deleteNonExistingBook() {
     when(bookRepository.findById(1L)).thenReturn(Optional.empty());
 

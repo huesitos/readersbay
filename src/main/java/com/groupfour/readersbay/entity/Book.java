@@ -28,6 +28,10 @@ public class Book {
   private String title;
   @Column(nullable=false, length=150)
   private String author;
+  @Column(nullable = false)
+  private ReadingStatus status;
+  private String genre;
+  private String subject;
   private String description;
   private String motivation;
 
@@ -37,5 +41,6 @@ public class Book {
   @OneToMany(mappedBy = "book")
   private List<Review> reviews;
 
-
+  @OneToMany(mappedBy = "book")
+  private List<Reflection> reflections;
 }

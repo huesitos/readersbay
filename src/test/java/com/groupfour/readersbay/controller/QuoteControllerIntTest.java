@@ -6,6 +6,7 @@ import com.groupfour.readersbay.entity.Quote;
 import com.groupfour.readersbay.entity.QuoteDTO;
 import com.groupfour.readersbay.entity.Visibility;
 import com.groupfour.readersbay.exception.BookNotFoundException;
+import com.groupfour.readersbay.exception.QuoteNotFoundException;
 import com.groupfour.readersbay.service.QuoteService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -64,7 +65,7 @@ class QuoteControllerIntTest {
     when(quoteService.getQuotesByBookId(1L)).thenReturn(List.of(quote, quote, quote));
 
     try {
-      MvcResult mvcResult = mockMvc.perform(get("/books/1/quotes")
+      MvcResult mvcResult = mockMvc.perform(get("/quotes/book/1")
               .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isOk())
           .andExpect(jsonPath("$[0].content").value(quote.getContent())).andReturn();
@@ -83,7 +84,33 @@ class QuoteControllerIntTest {
     when(quoteService.saveQuoteToBook(1L, quoteDTO)).thenReturn(quote);
 
     try {
-      mockMvc.perform(post("/books/1/quotes")
+      mockMvc.perform(post("/quotes/book/1")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
+          .andExpect(status().isOk());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  void updateBookQuote() throws QuoteNotFoundException {
+    when(quoteService.updateQuote(1L, quoteDTO)).thenReturn(quote);
+
+    try {
+      mockMvc.perform(post("/quotes/book/1")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
+          .andExpect(status().isOk());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  void deleteBookQuote() throws QuoteNotFoundException {
+    try {
+      mockMvc.perform(delete("/quotes/1")
               .contentType(MediaType.APPLICATION_JSON)
               .content(new Gson().toJson(quoteDTO, QuoteDTO.class)))
           .andExpect(status().isOk());

@@ -35,7 +35,7 @@ public class Quote {
   @Column(name="visibility", nullable=false)
   private Visibility visibility;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="book_id", nullable=false)
   @ToString.Exclude
   @JsonIgnore

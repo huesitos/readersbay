@@ -26,6 +26,13 @@ public class BookController {
     return bookService.getBooks();
   }
 
+  @GetMapping("/{book_id}")
+  public Book getBook(@PathVariable("book_id") Long bookId)
+      throws BookNotFoundException {
+    log.info("BookController: /books/{book_id} getBook");
+    return bookService.getBook(bookId);
+  }
+
   @PostMapping
   public Book saveBook(@RequestBody BookDTO bookDTO) {
     log.info("BookController: /books saveBooks");

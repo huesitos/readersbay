@@ -2,6 +2,7 @@ package com.groupfour.readersbay.controller;
 
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
+import com.groupfour.readersbay.entity.ReadingStatus;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.when;
 class BookControllerUnitTest {
 
   private Book book;
+  private BookDTO bookDTO;
 
   @BeforeEach
   void setUp() {
@@ -24,6 +26,15 @@ class BookControllerUnitTest {
         .author("Author")
         .title("Title")
         .build();
+
+    bookDTO = new BookDTO(
+        "New Title",
+        "Author",
+        "Description",
+        "Motivation",
+        ReadingStatus.READING,
+        "",
+        "");
   }
 
   @Test
@@ -35,12 +46,19 @@ class BookControllerUnitTest {
   }
 
   @Test
+  void getBook() throws BookNotFoundException {
+    BookService bookService = Mockito.mock(BookService.class);
+    BookController bookController = new BookController(bookService);
+    when(bookService.getBook(1L)).thenReturn(book);
+    assertEquals("Title", bookController.getBook(1L).getTitle());
+  }
+
+  @Test
   void saveBook() {
     BookService bookService = Mockito.mock(BookService.class);
     BookController bookController = new BookController(bookService);
 
     String title = "Title";
-    BookDTO bookDTO = new BookDTO(title, "Author", null, null);
     when(bookService.saveBook(bookDTO)).thenReturn(book);
     assertEquals(title, bookController.saveBook(bookDTO).getTitle());
   }
@@ -51,7 +69,6 @@ class BookControllerUnitTest {
     BookController bookController = new BookController(bookService);
 
     String newTitle = "Book";
-    BookDTO bookDTO = new BookDTO(newTitle, "Author", null, null);
     book.setTitle(newTitle);
     when(bookService.updateBook(1L, bookDTO)).thenReturn(book);
     assertEquals(newTitle, bookController.updateBook(1L, bookDTO).getTitle());

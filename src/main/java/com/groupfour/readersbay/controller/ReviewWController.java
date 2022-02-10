@@ -1,5 +1,6 @@
 package com.groupfour.readersbay.controller;
 
+import com.groupfour.readersbay.entity.ReviewDTO;
 import com.groupfour.readersbay.service.ReviewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ public class ReviewWController {
 
     @GetMapping("{book_param}/reviews")
     public String reviewsBook(@PathVariable("book_param") Long bookId, Model model) {
-        model.addAttribute("reviews",reviewService.fetchBookReviewById(bookId));
+        model.addAttribute("reviews",reviewService.findAllByBookId(bookId));
         return "reviews";
     }
 }

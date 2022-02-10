@@ -1,22 +1,52 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #home-main-content}
+                                               )}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>REVIEWS by book </title>
+    <title>Reviews</title>
 </head>
 <body>
-<h1>REVIEWS <span>reviews bys book</span> </h1>
 
-<table border="1">
-    <tr>
-        <td>Review id</td>
-        <td>Review</td>
-    </tr>
-    <tr th:each="rw : ${reviews}">
-        <td th:text="${rw.id_review}">First Name</td>
-        <td th:text="${rw.revies}">Last Name</td>
-    </tr>
-</table>
+<div id="home-main-content">
+    <div class="row">
+        <div class="col-xxl-l12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Books</li>
+                    <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <h2>Reviews</h2>
+    <div>All reviews - view example </div>
+
+    <ul th:each = "review : ${reviews}" class="reviews">
+        <li class="review">
+            <a href="#" class="review-link">
+                <div class="review-link--date">
+                    <span th:text="${review.date}">fecha</span>
+                </div>
+                <div class="review-link--score">
+                    <span>score: </span>
+                    <span th:text="${review.score}">score</span>
+                </div>
+                <div class="review-link--text">
+                    <span th:text="${review.text}">review</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+</div>
 
 </body>
 </html>

@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "public/")
-public class ReviewWController {
+@RequestMapping(path = "books/")
+public class ReviewWebController {
     private ReviewService reviewService;
 
-    public ReviewWController(ReviewService reviewService) {
+    public ReviewWebController(ReviewService reviewService) {
         super();
         this.reviewService = reviewService;
     }

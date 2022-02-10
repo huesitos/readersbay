@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #home-main-content}
+                                               )}">
+
+<head>
+    <title>Books</title>
+</head>
+<body>
+
+<div id="home-main-content">
+    <div class="row">
+        <div class="col-xxl-l12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Books</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <h2>Books</h2>
+
+    <div class="book" th:each=" detail : ${book} ">
+        <h3 th:text="${detail.title}"></h3>
+
+
+        <ul th:each = "review : ${detail.reviews}" class="reviews">
+            <li class="review">
+                <a href="#" class="review-link">
+                    <div class="review-link--date">
+                        <span th:text="${review.date}">fecha</span>
+                    </div>
+                    <div class="review-link--score">
+                        <span>score: </span>
+                        <span th:text="${review.score}">score</span>
+                    </div>
+                    <div class="review-link--text">
+                        <span th:text="${review.text}">review</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
+           class="book-link btn btn-default">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+            more reviews
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

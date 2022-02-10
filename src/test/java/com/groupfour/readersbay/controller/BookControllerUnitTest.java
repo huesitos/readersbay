@@ -35,6 +35,14 @@ class BookControllerUnitTest {
   }
 
   @Test
+  void getBook() throws BookNotFoundException {
+    BookService bookService = Mockito.mock(BookService.class);
+    BookController bookController = new BookController(bookService);
+    when(bookService.getBook(1L)).thenReturn(book);
+    assertEquals("Title", bookController.getBook(1L).getTitle());
+  }
+
+  @Test
   void saveBook() {
     BookService bookService = Mockito.mock(BookService.class);
     BookController bookController = new BookController(bookService);

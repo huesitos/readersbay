@@ -83,7 +83,7 @@ public class BookServiceImpl implements BookService {
     Optional<Book> optionalBook = bookRepository.findById(bookId);
 
     if (optionalBook.isEmpty()) {
-      String message = String.format("BookService: Book with id %d not found", bookId);
+      String message = String.format("Book with id %d not found", bookId);
       log.error(message);
       throw new BookNotFoundException(message);
     }

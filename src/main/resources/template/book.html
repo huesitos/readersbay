@@ -24,19 +24,79 @@
             </nav>
         </div>
     </div>
-
-
     <h4>Books</h4>
-
     <div class="book" th:each=" detail : ${book} ">
-        <div>
-            <h2 th:text="${detail.title}"></h2>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div>
+                    <h2 th:text="${detail.title}"></h2>
+                </div>
+                <div>
+                    <span th:text="${detail.author}">Author</span>
+                </div>
+                <div>
+                    <span th:text="${detail.description}">Description</span>
+                </div>
+            </div>
         </div>
-        <div>
-            <span th:text="${detail.author}">Author</span>
-        </div>
-        <div>
-            <span th:text="${detail.description}">Description</span>
+        <div class="row">
+            <div class="col-xxl-12">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Reviews</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reflexions</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <ul th:each = "review : ${detail.reviews}" class="reviews">
+                            <li class="review">
+                                <a href="#" class="review-link">
+                                    <div class="review-link--date">
+                                        <span th:text="${review.date}">date</span>
+                                    </div>
+                                    <div class="review-link--score">
+                                        <span>score: </span>
+                                        <span th:text="${review.score}">score</span>
+                                    </div>
+                                    <div class="review-link--text">
+                                        <span th:text="${review.text}">review</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <br>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCrtReview">
+                            <i class="fa fa-plus"></i>
+                            create a review
+                        </button>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <ul th:each = "reflection : ${detail.reflections}" class="reviews">
+                            <li class="review">
+                                <a href="#" class="review-link">
+                                    <div class="review-link--date">
+                                        <span th:text="${reflection.creationDate}">date</span>
+                                    </div>
+                                    <div class="review-link--text">
+                                        <span th:text="${reflection.content}">review</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <br>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCrtReflection">
+                            <i class="fa fa-plus"></i>
+                            create a reflection
+                        </button>
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <br>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div>
@@ -58,28 +118,75 @@
                 reflections
             </a>
         </div>
-
-        <ul th:each = "review : ${detail.reviews}" class="reviews">
-            <li class="review">
-                <a href="#" class="review-link">
-                    <div class="review-link--date">
-                        <span th:text="${review.date}">date</span>
-                    </div>
-                    <div class="review-link--score">
-                        <span>score: </span>
-                        <span th:text="${review.score}">score</span>
-                    </div>
-                    <div class="review-link--text">
-                        <span th:text="${review.text}">review</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
-
-
     </div>
 
+    <!-- modalCrtReview -->
+    <div class="modal fade" id="modalCrtReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Send a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{{idBook}/reviews(idBook=${modelBookId})}" th:object = "${review}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Score</label>
+                            <input type="number"
+                                   name="score"
+                                   th:field="*{score}"
+                                   class="form-control"
+                                   id="exampleFormControlInput1" required max="5" min="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Review</label>
+                            <textarea class="form-control"
+                                      name="text"
+                                      th:field="*{text}"
+                                      required
+                                      id="exampleFormControlTextarea1" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  ./ modalCrtReview  -->
+    <!-- modalCrtReview -->
+    <div class="modal fade" id="modalCrtReflection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Send a Reflection</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{{idBook}/reflections(idBook=${modelBookId})}" th:object = "${reflection}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Review</label>
+                            <textarea class="form-control"
+                                      name="text"
+                                      th:field="*{content}"
+                                      required
+                                      id="exampleFormControlTextarea1" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  ./ modalCrtReview  -->
 </div>
+
+
 
 </body>
 </html>

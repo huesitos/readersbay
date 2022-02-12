@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/")
+@RequestMapping("api/")
 public class ReviewController {
     @Autowired
     ReviewService reviewService;

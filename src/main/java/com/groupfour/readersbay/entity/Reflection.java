@@ -27,7 +27,7 @@ public class Reflection {
   private Visibility visibility;
   private LocalDate creationDate;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name="book_id", nullable=false)
   @ToString.Exclude
   @JsonIgnore

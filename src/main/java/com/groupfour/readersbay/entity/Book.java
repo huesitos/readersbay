@@ -1,6 +1,8 @@
 package com.groupfour.readersbay.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,12 +37,24 @@ public class Book {
   private String description;
   private String motivation;
 
-  @OneToMany(mappedBy = "book")
+  @OneToMany(
+      cascade = CascadeType.ALL,
+      mappedBy = "book"
+  )
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Quote> quotes;
 
-  @OneToMany(mappedBy = "book")
+  @OneToMany(
+      cascade = CascadeType.ALL,
+      mappedBy = "book"
+  )
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Review> reviews;
 
-  @OneToMany(mappedBy = "book")
+  @OneToMany(
+      cascade = CascadeType.ALL,
+      mappedBy = "book"
+  )
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Reflection> reflections;
 }

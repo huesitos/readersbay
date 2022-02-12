@@ -1,12 +1,15 @@
 package com.groupfour.readersbay.controller;
 
-import com.groupfour.readersbay.entity.Review;
 import com.groupfour.readersbay.entity.ReviewDTO;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.service.ReviewService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 
@@ -22,14 +25,15 @@ public class ReviewWebController {
     }
 
     @GetMapping("{book_param}/reviews")
-    public String reviewsBook(@PathVariable("book_param") Long bookId, Model model) {
+    public String reviewsBook(@PathVariable("book_param") Long bookId, @NotNull Model model) {
         model.addAttribute("reviews",reviewService.findAllByBookId(bookId));
         return "reviews";
     }
 
     @PostMapping("{book_id}/reviews")
     public String saveBookReview(@PathVariable("book_id") Long bookId,
-                                 @ModelAttribute("reviewObj")ReviewDTO reviewDTO) throws BookNotFoundException {
+                                 @ModelAttribute("reviewObj") @NotNull ReviewDTO reviewDTO)
+        throws BookNotFoundException {
         ReviewDTO reviewDTO1 = new ReviewDTO();
         reviewDTO1.setDate(LocalDate.now());
         reviewDTO1.setScore(reviewDTO.getScore());

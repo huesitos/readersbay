@@ -24,6 +24,7 @@ public class Reflection {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reflection_sequence")
   private Long reflectionId;
   private String title;
+  @Column(columnDefinition="TEXT")
   private String content;
   private Visibility visibility;
   private LocalDate creationDate;

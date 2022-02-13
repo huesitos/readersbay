@@ -37,6 +37,9 @@
                 <div>
                     <span th:text="${detail.description}">Description</span>
                 </div>
+                <div>
+                    <a th:href="@{/books/export/pdf/{bookId}(bookId=${detail.bookId})}">Export pdf</a>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -52,7 +55,7 @@
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <ul th:each = "review : ${detail.reviews}" class="reviews">
                             <li class="review">
-                                <a href="#" class="review-link">
+                                <span href="#" class="review-link">
                                     <div class="review-link--date">
                                         <span th:text="${review.date}">date</span>
                                     </div>
@@ -63,7 +66,7 @@
                                     <div class="review-link--text">
                                         <span th:text="${review.text}">review</span>
                                     </div>
-                                </a>
+                                </span>
                             </li>
                         </ul>
                         <br>
@@ -76,14 +79,14 @@
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <ul th:each = "reflection : ${detail.reflections}" class="reviews">
                             <li class="review">
-                                <a href="#" class="review-link">
+                                <span href="#" class="review-link">
                                     <div class="review-link--date">
                                         <span th:text="${reflection.creationDate}">date</span>
                                     </div>
                                     <div class="review-link--text">
                                         <span th:text="${reflection.content}">review</span>
                                     </div>
-                                </a>
+                                </span>
                             </li>
                         </ul>
                         <br>
@@ -96,14 +99,14 @@
                     <div class="tab-pane fade" id="nav-quotes" role="tabpanel" aria-labelledby="nav-quotes-tab">
                         <ul th:each = "quote : ${detail.quotes}" class="reviews">
                             <li class="review">
-                                <a href="#" class="review-link">
+                                <span href="#" class="review-link">
                                     <div class="review-link--date">
                                         <span th:text="${quote.creationDate}">date</span>
                                     </div>
                                     <div class="review-link--text">
                                         <span th:text="${quote.content}">review</span>
                                     </div>
-                                </a>
+                                </span>
                             </li>
                         </ul>
                         <br>

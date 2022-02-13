@@ -26,7 +26,7 @@ public class Review {
     private Long reviewId;
     @Column(name = "score", length = 5)
     private int score;
-    @Column(name = "review")
+    @Column(name = "review", columnDefinition = "TEXT")
     private String text;
     @Column(name = "date", nullable = false)
     private LocalDate date;

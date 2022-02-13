@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/books")
+@RequestMapping("/api/books")
 @AllArgsConstructor
 @Log4j2
 public class BookController {

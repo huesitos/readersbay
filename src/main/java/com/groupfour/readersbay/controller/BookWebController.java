@@ -2,13 +2,21 @@ package com.groupfour.readersbay.controller;
 
 import com.groupfour.readersbay.entity.*;
 import com.groupfour.readersbay.exception.BookNotFoundException;
+import com.groupfour.readersbay.helpers.LibrePDFExporter;
+import com.groupfour.readersbay.helpers.PDFExporter;
 import com.groupfour.readersbay.service.BookService;
 import com.groupfour.readersbay.service.QuoteService;
 import com.groupfour.readersbay.service.ReflectionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lowagie.text.DocumentException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping(path = "/books")
@@ -27,7 +35,7 @@ public class BookWebController {
     }
 
     @GetMapping()
-    public String fetchBooks(Model model) {
+    public String fetchBooks(@NotNull Model model) {
         BookDTO bookDTO = new BookDTO();
         model.addAttribute("books", bookService.getBooks());
         model.addAttribute("book",bookDTO);
@@ -35,7 +43,7 @@ public class BookWebController {
     }
 
     @GetMapping("/{book_id}")
-    public String getBook(@PathVariable("book_id") Long bookId, Model model)
+    public String getBook(@PathVariable("book_id") Long bookId, @NotNull Model model)
             throws BookNotFoundException {
         ReviewDTO reviewDTO = new ReviewDTO();
         ReflectionDTO reflectionDTO = new ReflectionDTO();
@@ -54,5 +62,23 @@ public class BookWebController {
     public String saveBook(@ModelAttribute("bookCrt") BookDTO bookDTO) {
         bookService.saveBook(bookDTO);
         return "redirect:books";
+    }
+    
+    @GetMapping("/export/pdf/{book_id}")
+    public void exportToPDF(@PathVariable("book_id") Long bookId,
+                            @NotNull HttpServletResponse response)
+        throws DocumentException, BookNotFoundException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        Book book = bookService.getBook(bookId);
+
+        PDFExporter exporter = new LibrePDFExporter();
+        exporter.exportBook(response, book);
     }
 }

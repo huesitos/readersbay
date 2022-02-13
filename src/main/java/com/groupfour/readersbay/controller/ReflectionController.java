@@ -15,19 +15,19 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Log4j2
-@RequestMapping("/api/books/")
+@RequestMapping("/api/")
 public class ReflectionController {
 
   @Autowired
   ReflectionService reflectionService;
 
-  @GetMapping("/{book_id}/reflections")
+  @GetMapping("/books/{book_id}/reflections")
   public List<Reflection> fetchBookReflections(@PathVariable("book_id") Long bookId) {
     log.info("ReflectionController: /books/{book_id}/reflections fetchReflection");
     return reflectionService.getReflections(bookId);
   }
 
-  @PostMapping("/{book_id}/reflections")
+  @PostMapping("books/{book_id}/reflections")
   public Reflection saveReflection(@PathVariable("book_id") Long bookId,
                                    @RequestBody ReflectionDTO reflectionDTO)
       throws BookNotFoundException {

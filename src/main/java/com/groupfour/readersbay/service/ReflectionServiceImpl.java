@@ -39,6 +39,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 
     Reflection reflection =
         Reflection.builder()
+            .title(reflectionDTO.getTitle())
             .content(reflectionDTO.getContent())
             .visibility(reflectionDTO.getVisibility())
             .creationDate(LocalDate.now())
@@ -52,6 +53,10 @@ public class ReflectionServiceImpl implements ReflectionService {
   public Reflection updateReflection(Long reflectionId, @NotNull ReflectionDTO reflectionDTO)
       throws ReflectionNotFoundException {
     Reflection reflection = findReflectionById(reflectionId);
+
+    if (reflectionDTO.getTitle() != null && !reflectionDTO.getTitle().isEmpty()) {
+      reflection.setTitle(reflectionDTO.getTitle());
+    }
 
     if (reflectionDTO.getContent() != null && !reflectionDTO.getContent().isEmpty()) {
       reflection.setContent(reflectionDTO.getContent());

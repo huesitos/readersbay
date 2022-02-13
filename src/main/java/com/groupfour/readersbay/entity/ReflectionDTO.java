@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ReflectionDTO {
+  private String title;
   private String content;
   private Visibility visibility;
 }

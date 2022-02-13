@@ -23,20 +23,96 @@
             </nav>
         </div>
     </div>
-
-
+    <!--    -->
     <h4>Books</h4>
 
-    <ul th:each = "book : ${books}" class="books">
-        <li class="book">
-            <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
-                <div class="book-link--text">
-                    <i class="fa fa-book"></i>
-                    <span th:text="${book.title}">title</span>
+    <div class="row">
+        <div class="col-xxl-12">
+            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalCrtBook">
+                <i class="fa fa-plus"></i>
+                Create book
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxl-12">
+            <ul th:each = "book : ${books}" class="books">
+                <li class="book">
+                    <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
+                        <div class="book-link--text">
+                            <i class="fa fa-book"></i>
+                            <span th:text="${book.title}">title</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--    -->
+    <!-- modalCrtQuote -->
+    <div class="modal fade" id="modalCrtBook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Save a Book</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </a>
-        </li>
-    </ul>
+                <form action="#" th:action="@{books}" th:object = "${bookCrt}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input name="title" type="text" class="form-control" placeholder="Enter title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Author</label>
+                            <input name="author" type="text" class="form-control" placeholder="Enter title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input name="description" type="text" class="form-control" placeholder="Enter title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Motivation</label>
+                            <input name="motivation" type="text" class="form-control" placeholder="Enter title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <input name="subject" type="text" class="form-control" placeholder="Enter title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Genre</label>
+                            <input name="genre" type="text" class="form-control" placeholder="Enter title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select name="status"
+                                    class="select2 form-control"
+                                    id="statusId">
+                                <option value="READ">READ</option>
+                                <option value="READ">READING</option>
+                                <option value="READ">TO_READ</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  ./ modalCrtQuote  -->
+
 
 </div>
 

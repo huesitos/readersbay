@@ -30,11 +30,7 @@ public class ReviewWebController {
     @PostMapping("{book_id}/reviews")
     public String saveBookReview(@PathVariable("book_id") Long bookId,
                                  @ModelAttribute("reviewObj")ReviewDTO reviewDTO) throws BookNotFoundException {
-        ReviewDTO reviewDTO1 = new ReviewDTO();
-        reviewDTO1.setDate(LocalDate.now());
-        reviewDTO1.setScore(reviewDTO.getScore());
-        reviewDTO1.setText(reviewDTO.getText());
-        reviewService.saveReviewToBook(bookId, reviewDTO1);
-        return "redirect:/books";
+        reviewService.saveReviewToBook(bookId, reviewDTO);
+        return "redirect:/books/"+bookId;
     }
 }

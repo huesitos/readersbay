@@ -25,10 +25,7 @@ public class ReflectionWebController {
     @PostMapping("{book_id}/reflections")
     public String saveReflection(@PathVariable("book_id") Long bookId,
                                  @ModelAttribute("reviewObj") ReflectionDTO reflectionDTO) throws BookNotFoundException {
-        ReflectionDTO reflectionDTO1 = new ReflectionDTO();
-        reflectionDTO1.setContent(reflectionDTO.getContent());
-        reflectionDTO1.setVisibility(reflectionDTO.getVisibility());
-        reflectionService.saveReflection(bookId, reflectionDTO1);
-        return "redirect:/books";
+        reflectionService.saveReflection(bookId, reflectionDTO);
+        return "redirect:/books/"+bookId;
     }
 }

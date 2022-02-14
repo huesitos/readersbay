@@ -40,4 +40,6 @@ public class Quote {
   @ToString.Exclude
   @JsonIgnore
   private Book book;
+
+  private String userId;
 }

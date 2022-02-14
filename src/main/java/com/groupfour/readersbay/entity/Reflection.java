@@ -34,4 +34,6 @@ public class Reflection {
   @ToString.Exclude
   @JsonIgnore
   private Book book;
+
+  private String userId;
 }

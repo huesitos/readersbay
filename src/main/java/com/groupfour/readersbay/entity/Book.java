@@ -59,4 +59,6 @@ public class Book {
   )
   @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Reflection> reflections;
+
+  private String userId;
 }

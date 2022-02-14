@@ -38,4 +38,6 @@ public class Review {
     )
     @JsonIgnore
     private Book book;
+
+    private String userId;
 }

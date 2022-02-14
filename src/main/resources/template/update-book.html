@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #home-main-content}
+                                               )}">
+
+<head>
+    <title>Books</title>
+</head>
+<body>
+
+<div id="home-main-content">
+    <div class="row">
+        <div class="col-xxl-l12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Books</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--    -->
+    <h4>Edit book</h4>
+
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card text-center">
+                <div class="card-header">
+                    Edit Book
+                </div>
+                <form action="#" th:action="@{{idBook}(idBook=${modelBookId})}" th:object = "${book}" method="POST">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xxl-6">
+                            <div class="mb-3">
+                                <label class="form-label">Title</label>
+                                <input name="title" type="text" th:field="*{title}" class="form-control" placeholder="Enter title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Author</label>
+                                <input name="author" th:field="*{author}" type="text" class="form-control" placeholder="Enter title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Status </label>
+                                <select name="status"
+                                        required
+                                        class="select2 form-control"
+                                        th:field="*{status}"
+                                        id="statusId">
+                                    <option th:value="'READ'" th:text="Read"></option>
+                                    <option th:value="'READING'" th:text="Reading"></option>
+                                    <option th:value="'TO_READ'" th:text="To_read"></option>
+                                </select>
+                            </div>
+                            <!--    -->
+                        </div>
+                        <div class="col-xxl-6">
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <input name="description" th:field="*{description}" type="text" class="form-control" placeholder="Enter title" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Motivation</label>
+                                <input name="motivation" th:field="*{motivation}" type="text" class="form-control" placeholder="Enter title" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input name="subject" th:field="*{subject}" type="text" class="form-control" placeholder="Enter title" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Genre</label>
+                                <input name="genre" th:field="*{genre}" type="text" class="form-control" placeholder="Enter title" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <a th:href="@{/books/{idBook}(idBook=${modelBookId})}"  href="#" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">Save Book</button>
+                </div>
+                <!--    -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    -->
+
+
+
+</div>
+
+</body>
+</html>

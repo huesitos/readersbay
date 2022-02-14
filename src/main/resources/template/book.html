@@ -42,6 +42,10 @@
                         <i class="fa fa-download"></i>
                         Export pdf
                     </a>
+                    <a th:href="@{/books/edit/{bookId}(bookId=${detail.bookId})}" class="btn btn-link">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        Edit
+                    </a>
                 </div>
             </div>
         </div>

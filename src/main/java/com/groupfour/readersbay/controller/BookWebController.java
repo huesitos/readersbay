@@ -60,6 +60,21 @@ public class BookWebController {
         return "book";
     }
 
+    @GetMapping("/edit/{book_id}")
+    public String getBookToEdit(@PathVariable("book_id") Long bookId, @NotNull Model model)
+            throws BookNotFoundException {
+        model.addAttribute("modelBookId",bookId);
+        model.addAttribute("book",bookService.getBook(bookId));
+        return "update-book";
+    }
+
+    @PostMapping("/edit/{book_id}")
+    public String updateBook(@PathVariable("book_id") Long bookId,
+                           @ModelAttribute("book") BookDTO bookDTO) throws BookNotFoundException {
+            bookService.updateBook(bookId, bookDTO);
+        return "redirect:/books/"+bookId;
+    }
+
     @PostMapping
     public String saveBook(@ModelAttribute("book") BookDTO bookDTO) {
             bookService.saveBook(bookDTO);

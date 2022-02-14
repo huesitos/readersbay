@@ -15,19 +15,19 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Log4j2
-@RequestMapping("/quotes")
+@RequestMapping("/api/")
 public class QuoteController {
 
   @Autowired
   QuoteService quoteService;
 
-  @GetMapping("/book/{book_id}")
+  @GetMapping("books/{book_id}/quotes")
   public List<Quote> fetchBookQuotes(@PathVariable("book_id") Long bookId) {
     log.info("QuoteController: /{book_id}/quotes fetchBookQuotes with id {}", bookId);
     return quoteService.getQuotesByBookId(bookId);
   }
 
-  @PostMapping("/book/{book_id}")
+  @PostMapping("books/{book_id}/quotes")
   public Quote saveBookQuote(@PathVariable("book_id") Long bookId,
                                    @RequestBody QuoteDTO quoteDTO) throws BookNotFoundException {
     log.info("QuoteController: /{book_id}/quotes saveBookQuote {} to book id {}",
@@ -35,7 +35,7 @@ public class QuoteController {
     return quoteService.saveQuoteToBook(bookId, quoteDTO);
   }
 
-  @PutMapping("/{quote_id}")
+  @PutMapping("/quotes/{quote_id}")
   public Quote updateBookQuote(@PathVariable("quote_id") Long quoteId,
                              @RequestBody QuoteDTO quoteDTO) throws QuoteNotFoundException {
     log.info("QuoteController: /quotes/{quote_id} updateBookQuote {} with {}",
@@ -43,7 +43,7 @@ public class QuoteController {
     return quoteService.updateQuote(quoteId, quoteDTO);
   }
 
-  @DeleteMapping("/{quote_id}")
+  @DeleteMapping("/quotes/{quote_id}")
   public String deleteBookQuote(@PathVariable("quote_id") Long quoteId)
       throws QuoteNotFoundException {
     log.info("QuoteController: /quotes/{quote_id} deleteBookQuote {}", quoteId);

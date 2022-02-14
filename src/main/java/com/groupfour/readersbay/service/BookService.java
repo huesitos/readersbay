@@ -2,6 +2,7 @@ package com.groupfour.readersbay.service;
 
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
+import com.groupfour.readersbay.entity.ReadingStatus;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,4 +18,6 @@ public interface BookService {
   String deleteBook(Long bookId) throws BookNotFoundException;
 
   Book getBook(Long bookId) throws BookNotFoundException;
+
+  List<Book> getBooksStatus(int status);
 }

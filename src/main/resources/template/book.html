@@ -24,62 +24,219 @@
             </nav>
         </div>
     </div>
-
-
     <h4>Books</h4>
-
     <div class="book" th:each=" detail : ${book} ">
-        <div>
-            <h2 th:text="${detail.title}"></h2>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div>
+                    <h2 th:text="${detail.title}"></h2>
+                </div>
+                <div>
+                    <span th:text="${detail.author}">Author</span>
+                </div>
+                <div>
+                    <span th:text="${detail.description}">Description</span>
+                </div>
+                <div style="margin:20px 0 20px;">
+                    <a th:href="@{/books/export/pdf/{bookId}(bookId=${detail.bookId})}" class="btn btn-primary">
+                        <i class="fa fa-download"></i>
+                        Export pdf
+                    </a>
+                </div>
+            </div>
         </div>
-        <div>
-            <span th:text="${detail.author}">Author</span>
-        </div>
-        <div>
-            <span th:text="${detail.description}">Description</span>
-        </div>
-
-        <div>
-            <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
-               class="book-link btn btn-default">
-                <i class="fa fa-external-link" aria-hidden="true"></i>
-                more reviews
-            </a>
-
-            <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
-               class="book-link btn btn-default">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-                quotes
-            </a>
-
-            <a th:href="@{/books/{idBook}/reviews(idBook=${detail.bookId})}"
-               class="book-link btn btn-default">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-                reflections
-            </a>
-        </div>
-
-        <ul th:each = "review : ${detail.reviews}" class="reviews">
-            <li class="review">
-                <a href="#" class="review-link">
-                    <div class="review-link--date">
-                        <span th:text="${review.date}">date</span>
+        <div class="row">
+            <div class="col-xxl-12">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="true">Reviews</button>
+                        <button class="nav-link" id="nav-reflections-tab" data-bs-toggle="tab" data-bs-target="#nav-reflections" type="button" role="tab" aria-controls="nav-reflections" aria-selected="false">Reflections</button>
+                        <button class="nav-link" id="nav-quotes-tab" data-bs-toggle="tab" data-bs-target="#nav-quotes" type="button" role="tab" aria-controls="nav-quotes" aria-selected="false">Quotes</button>
                     </div>
-                    <div class="review-link--score">
-                        <span>score: </span>
-                        <span th:text="${review.score}">score</span>
-                    </div>
-                    <div class="review-link--text">
-                        <span th:text="${review.text}">review</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                        <!-- Button trigger modal -->
+                        <button style="margin:20px 0 20px;" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCrtReview">
+                            <i class="fa fa-plus"></i>
+                            create a review
+                        </button>
 
+                        <ul style="margin:20px 0 20px;" th:each = "review : ${detail.reviews}" class="reviews">
+                            <li class="review">
+                                <span href="#" class="review-link">
+                                    <div class="review-link--date">
+                                        <span th:text="${review.date}">date</span>
+                                    </div>
+                                    <div class="review-link--score">
+                                        <span>score: </span>
+                                        <span th:text="${review.score}">score</span>
+                                    </div>
+                                    <div class="review-link--text">
+                                        <span th:text="${review.text}">review</span>
+                                    </div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="nav-reflections" role="tabpanel" aria-labelledby="nav-reflections-tab">
+                        <!-- Button trigger modal -->
+                        <button style="margin:20px 0 20px;" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCrtReflection">
+                            <i class="fa fa-plus"></i>
+                            create a reflection
+                        </button>
+                        <br>
+                        <ul style="margin:20px 0 20px;" th:each = "reflection : ${detail.reflections}" class="reviews">
+                            <li class="review">
+                                <span href="#" class="review-link">
+                                    <div class="review-link--date">
+                                        <span th:text="${reflection.creationDate}">date</span>
+                                    </div>
+                                    <div class="review-link--text">
+                                        <span th:text="${reflection.content}">review</span>
+                                    </div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="nav-quotes" role="tabpanel" aria-labelledby="nav-quotes-tab">
+                        <!-- Button trigger modal -->
+                        <button style="margin:20px 0 20px;" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalCrtQuotes">
+                            <i class="fa fa-plus"></i>
+                            create a quotes
+                        </button>
+                        <ul style="margin:20px 0 20px;" th:each = "quote : ${detail.quotes}" class="reviews">
+                            <li class="review">
+                                <span href="#" class="review-link">
+                                    <div class="review-link--date">
+                                        <span th:text="${quote.creationDate}">date</span>
+                                    </div>
+                                    <div class="review-link--text">
+                                        <span th:text="${quote.content}">review</span>
+                                    </div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
+    <!-- modalCrtReview -->
+    <div class="modal fade" id="modalCrtReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Send a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{{idBook}/reviews(idBook=${modelBookId})}" th:object = "${review}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="crtInputReviewScore" class="form-label">Score</label>
+                            <input type="number"
+                                   name="score"
+                                   th:field="*{score}"
+                                   class="form-control"
+                                   id="crtInputReviewScore" required max="5" min="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="crtInputReviewText" class="form-label">Review</label>
+                            <textarea class="form-control"
+                                      name="text"
+                                      th:field="*{text}"
+                                      required
+                                      id="crtInputReviewText" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  ./ modalCrtReview  -->
+    <!-- modalCrtReview -->
+    <div class="modal fade" id="modalCrtReflection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">Send a Reflection</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{{idBook}/reflections(idBook=${modelBookId})}" th:object = "${reflection}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="crtInputReflectionText" class="form-label">Review</label>
+                            <textarea class="form-control"
+                                      name="text"
+                                      th:field="*{content}"
+                                      required
+                                      id="crtInputReflectionText" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="crtInputReflectionVisibility" class="form-label">Visibility</label>
+                            <select name="visibility"
+                                    class="select2 form-control"
+                                    id="crtInputReflectionVisibility"
+                                    th:field="*{visibility}">
+                                <option th:value="'PRIVATE'" th:text="Private"></option>
+                                <option th:value="'PUBLIC'" th:text="Public"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save reflection</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  ./ modalCrtReview  -->
+    <!-- modalCrtQuote -->
+    <div class="modal fade" id="modalCrtQuotes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Send a Quote</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{{idBook}/quotes(idBook=${modelBookId})}" th:object = "${qoute}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="crtInputTextQuote" class="form-label">Review</label>
+                            <textarea class="form-control"
+                                      name="text"
+                                      th:field="*{content}"
+                                      required
+                                      id="crtInputTextQuote" rows="2"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="crtInputVisibilityQuote" class="form-label">Visibility</label>
+                            <select name="visibility"
+                                    class="select2 form-control"
+                                    required
+                                    id="crtInputVisibilityQuote"
+                                    th:field="*{visibility}">
+                                <option th:value="'PRIVATE'" th:text="Private"></option>
+                                <option th:value="'PUBLIC'" th:text="Public"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save quote</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  ./ modalCrtQuote  -->
 </div>
-
 </body>
 </html>

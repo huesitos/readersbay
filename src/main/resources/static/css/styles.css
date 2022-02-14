@@ -28,3 +28,8 @@
     color: #000;
     font-size: 16px;
 }
+
+.select2-container {
+    z-index:1111 !important;
+    width:100% !important;
+}

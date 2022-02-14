@@ -28,14 +28,14 @@ public class Quote {
   @Setter(AccessLevel.NONE)
   private Long quoteId;
   @NotBlank
-  @Column(name="content", nullable=false)
+  @Column(name="content", nullable=false, length = 500)
   private String content;
   @Column(name="creation_date", nullable=false, updatable=false)
   private LocalDate creationDate;
   @Column(name="visibility", nullable=false)
   private Visibility visibility;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name="book_id", nullable=false)
   @ToString.Exclude
   @JsonIgnore

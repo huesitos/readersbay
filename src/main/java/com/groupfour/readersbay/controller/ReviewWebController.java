@@ -35,6 +35,6 @@ public class ReviewWebController {
                                  @ModelAttribute("reviewObj") @NotNull ReviewDTO reviewDTO)
         throws BookNotFoundException {
         reviewService.saveReviewToBook(bookId, reviewDTO);
-        return "redirect:/books";
+        return "redirect:/books/"+bookId+"#nav-review";
     }
 }

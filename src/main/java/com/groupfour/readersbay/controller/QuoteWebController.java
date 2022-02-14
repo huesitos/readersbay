@@ -20,6 +20,6 @@ public class QuoteWebController {
     public String saveReflection(@PathVariable("book_id") Long bookId,
                                  @ModelAttribute("quoteObj")QuoteDTO quoteDTO) throws BookNotFoundException {
         quoteService.saveQuoteToBook(bookId,quoteDTO);
-        return "redirect:/books/"+bookId;
+        return "redirect:/books/"+bookId+"#nav-quotes";
     }
 }

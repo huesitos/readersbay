@@ -28,7 +28,7 @@
 
     <div class="row">
         <div class="col-xxl-12">
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalCrtBook">
+            <button style="margin:20px 0 20px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrtBook">
                 <i class="fa fa-plus"></i>
                 Create book
             </button>
@@ -37,16 +37,61 @@
 
     <div class="row">
         <div class="col-xxl-12">
-            <ul th:each = "book : ${books}" class="books">
-                <li class="book">
-                    <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
-                        <div class="book-link--text">
-                            <i class="fa fa-book"></i>
-                            <span th:text="${book.title}">title</span>
-                        </div>
-                    </a>
+
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Read</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Reading</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">To Read</button>
                 </li>
             </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <ul th:each = "book : ${booksRead}" class="books" style="margin:20px 0 20px;">
+                        <li class="book">
+                            <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
+                                <div class="book-link--text">
+                                    <i class="fa fa-book"></i>
+                                    <span th:text="${book.title}">title</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <ul th:each = "book : ${booksReading}" class="books" style="margin:20px 0 20px;">
+                        <li class="book">
+                            <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
+                                <div class="book-link--text">
+                                    <i class="fa fa-book"></i>
+                                    <span th:text="${book.title}">title</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <ul th:each = "book : ${booksToRead}" class="books" style="margin:20px 0 20px;">
+                        <li class="book">
+                            <a th:href="@{/books/{idBook}(idBook=${book.bookId})}" class="book-link">
+                                <div class="book-link--text">
+                                    <i class="fa fa-book"></i>
+                                    <span th:text="${book.title}">title</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
     <!--    -->
@@ -58,7 +103,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Save a Book</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="#" th:action="@{books}" th:object = "${bookCrt}" method="POST">
+                <form action="#" th:action="@{books}" th:object = "${book}" method="POST">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Title</label>
@@ -95,10 +140,11 @@
                             <select name="status"
                                     required
                                     class="select2 form-control"
+                                    th:field="*{status}"
                                     id="statusId">
-                                <option value="READ">READ</option>
-                                <option value="READ">READING</option>
-                                <option value="READ">TO_READ</option>
+                                <option th:value="'READ'" th:text="Read"></option>
+                                <option th:value="'READING'" th:text="Reading"></option>
+                                <option th:value="'TO_READ'" th:text="To_read"></option>
                             </select>
                         </div>
 

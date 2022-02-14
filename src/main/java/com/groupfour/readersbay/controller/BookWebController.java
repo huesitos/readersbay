@@ -37,8 +37,10 @@ public class BookWebController {
     @GetMapping()
     public String fetchBooks(@NotNull Model model) {
         BookDTO bookDTO = new BookDTO();
-        model.addAttribute("books", bookService.getBooks());
         model.addAttribute("book",bookDTO);
+        model.addAttribute("booksRead",bookService.getBooksStatus(0));
+        model.addAttribute("booksReading",bookService.getBooksStatus(1));
+        model.addAttribute("booksToRead",bookService.getBooksStatus(2));
         return "books";
     }
 
@@ -59,7 +61,7 @@ public class BookWebController {
     }
 
     @PostMapping
-    public String saveBook(@ModelAttribute("bookCrt") BookDTO bookDTO) {
+    public String saveBook(@ModelAttribute("book") BookDTO bookDTO) {
         bookService.saveBook(bookDTO);
         return "redirect:books";
     }

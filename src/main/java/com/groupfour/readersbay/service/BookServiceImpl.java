@@ -2,6 +2,7 @@ package com.groupfour.readersbay.service;
 
 import com.groupfour.readersbay.entity.Book;
 import com.groupfour.readersbay.entity.BookDTO;
+import com.groupfour.readersbay.entity.ReadingStatus;
 import com.groupfour.readersbay.exception.BookNotFoundException;
 import com.groupfour.readersbay.repository.BookRepository;
 import lombok.AllArgsConstructor;
@@ -47,6 +48,11 @@ public class BookServiceImpl implements BookService {
   public Book getBook(Long bookId) throws BookNotFoundException {
     log.info("BookService: Getting book {}", bookId);
     return findBookById(bookId);
+  }
+
+  @Override
+  public List<Book> getBooksStatus(int readingStatus) {
+    return bookRepository.findAllByStatus(readingStatus);
   }
 
   @Override

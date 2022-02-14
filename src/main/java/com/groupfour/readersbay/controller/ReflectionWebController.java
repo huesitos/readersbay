@@ -26,6 +26,6 @@ public class ReflectionWebController {
     public String saveReflection(@PathVariable("book_id") Long bookId,
                                  @ModelAttribute("reviewObj") ReflectionDTO reflectionDTO) throws BookNotFoundException {
         reflectionService.saveReflection(bookId, reflectionDTO);
-        return "redirect:/books/"+bookId;
+        return "redirect:/books/"+bookId+"#nav-reflections";
     }
 }

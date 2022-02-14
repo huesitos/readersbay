@@ -62,7 +62,7 @@ public class BookWebController {
 
     @PostMapping
     public String saveBook(@ModelAttribute("book") BookDTO bookDTO) {
-        bookService.saveBook(bookDTO);
+            bookService.saveBook(bookDTO);
         return "redirect:books";
     }
     

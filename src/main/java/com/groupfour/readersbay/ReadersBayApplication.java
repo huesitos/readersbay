@@ -1,5 +1,6 @@
 package com.groupfour.readersbay;
 
+import com.groupfour.readersbay.entity.BookDTO;
 import com.groupfour.readersbay.service.BookService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +24,11 @@ public class ReadersBayApplication {
 
 	@GetMapping
 	public String getIndex(Model model){
-		model.addAttribute("books", bookService.getBooks());
+		BookDTO bookDTO = new BookDTO();
+		model.addAttribute("book",bookDTO);
+		model.addAttribute("booksRead",bookService.getBooksStatus(0));
+		model.addAttribute("booksReading",bookService.getBooksStatus(1));
+		model.addAttribute("booksToRead",bookService.getBooksStatus(2));
 		return "books";
 	}
 }

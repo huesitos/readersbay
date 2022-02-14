@@ -28,7 +28,7 @@ public class Quote {
   @Setter(AccessLevel.NONE)
   private Long quoteId;
   @NotBlank
-  @Column(name="content", nullable=false)
+  @Column(name="content", nullable=false, length = 500)
   private String content;
   @Column(name="creation_date", nullable=false, updatable=false)
   private LocalDate creationDate;

@@ -34,7 +34,9 @@ public class Book {
   private ReadingStatus status;
   private String genre;
   private String subject;
+  @Column(columnDefinition="TEXT")
   private String description;
+  @Column(columnDefinition="TEXT")
   private String motivation;
 
   @OneToMany(
